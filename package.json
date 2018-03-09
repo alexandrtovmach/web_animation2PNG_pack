@@ -16,6 +16,7 @@
   "author": "Alexandr Tovmach <alexandrtovmach@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "chrome-remote-interface": "^0.25.5",
     "puppeteer": "^1.1.1"
   }
 }

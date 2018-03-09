@@ -32,7 +32,6 @@ if (!link) {
         })
     });
 
-
   const pageLoading = function (pageInstance) {
     return new Promise(function executor(resolve) {
       counter++;
