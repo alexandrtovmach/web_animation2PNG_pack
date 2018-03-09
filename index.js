@@ -12,24 +12,45 @@ if (!link) {
 
 (async () => {
   let counter = 0;
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
   const dir = `./screenshots/${/\/\/([a-zA-Z0-9\.]*)\//.exec(link)[1].replace(/\./g, '')}`
 
   if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
   }
 
-  await page.goto(link);
+  puppeteer.launch()
+    .then((browser) => {
+      browser.newPage()
+        .then((page) => {
+          page.goto(link)
+            .then(() => {
+              pageLoading(page)
+                .then(() => {
+                  browser.close();
+                })
+            })
+        })
+    });
 
-  while(counter < recordDuration*FPS) {
-    counter++;
-    await page.screenshot({
-      path: `${dir}/${counter}.png`,
-      fullPage: fullPage
-    })
+
+  const pageLoading = function (pageInstance) {
+    return new Promise(function executor(resolve) {
+      counter++;
+      pageInstance.screenshot({
+        path: `${dir}/${counter}.png`,
+        fullPage: fullPage
+      })
+      .then(() => {
+        if (counter >= recordDuration*FPS) {
+          console.log(`Captured ${counter}.png`);
+          console.log("Finished");
+          resolve();
+        } else {
+          console.log(`Captured ${counter}.png`);
+          setTimeout(executor.bind(null, resolve), 500/FPS);
+        }
+      })
+    });
   }
   
-
-  await browser.close();
 })();
