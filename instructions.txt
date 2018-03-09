@@ -1,0 +1,7 @@
+chrome headless is just like normal google chrome, but you can work with it from the command-line.
+Is like phantom.js (deprecated), but better.
+Reason I ask is because I need a script that enables me to capture html5 animations and export the animation to PNG (afterwards I compile it to movie)
+See here for the problem: https://stackoverflow.com/questions/44050259/headless-chrome-capture-screen-video-or-animation
+So it can work perfectly, but I need a proof of concept.
+I'm not experienced with node.js - so that's why I asked.
+I'd like to try and capture animations like this: http://www.chartjs.org/samples/latest/charts/doughnut.html
